@@ -1,5 +1,5 @@
 
-* hbplregress R package *
+= hbplregress R package =
 
 This package implements linear regression distributed over several nodes.
 
