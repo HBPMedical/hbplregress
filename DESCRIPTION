@@ -9,3 +9,4 @@ Depends: R (>= 3.2.1)
 Imports: MASS
 License: MIT
 LazyData: true
+Suggests: testthat

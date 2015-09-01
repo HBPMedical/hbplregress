@@ -11,12 +11,12 @@
 #' @export
 LRegress_Node <- function(y,A) {
   # Lester Melie-Garcia
-  # LREN, CHUV. 
+  # LREN, CHUV.
   # Lausanne, June 24th, 2015
   
-  At <- t(A);
-  Sigmai <- MASS::ginv(At%*%A);
-  betai  <- Sigmai%*%At%*%y; 
-  rout   <- list(betai,Sigmai);
-  return(rout);
+  At <- t(A)
+  Sigmai <- MASS::ginv(At%*%A)
+  betai  <- Sigmai%*%At%*%y
+  rout   <- list(betai,Sigmai)
+  return(rout)
 }

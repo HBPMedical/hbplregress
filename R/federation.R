@@ -12,14 +12,14 @@
 #' @export
 LRegress_Federation <- function(beta1,Sigma1,beta2,Sigma2){
   # Lester Melie-Garcia
-  # LREN, CHUV. 
+  # LREN, CHUV.
   # Lausanne, June 24th, 2015
   
-  invSigma1 <- ginv(Sigma1);
-  invSigma2 <- ginv(Sigma2);
-  Sigmaf <- MASS::ginv(invSigma1 + invSigma2);
-  betaf  <- Sigmaf%*%(invSigma1%*%beta1 + invSigma2%*%beta2);
+  invSigma1 <- ginv(Sigma1)
+  invSigma2 <- ginv(Sigma2)
+  Sigmaf <- MASS::ginv(invSigma1 + invSigma2)
+  betaf  <- Sigmaf%*%(invSigma1%*%beta1 + invSigma2%*%beta2)
   
-  rout <- list(betaf,Sigmaf);
-  return(rout);
+  rout <- list(betaf,Sigmaf)
+  return(rout)
 }
