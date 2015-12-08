@@ -1,4 +1,4 @@
-library(testthat)
-library(hbplregress)
+library(testthat);
+library(hbplregress);
 
-test_check("hbplregress")
+test_check("hbplregress");
