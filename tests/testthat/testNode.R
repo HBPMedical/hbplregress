@@ -6,29 +6,32 @@ test_that("Linear regression is correct at the node level", {
 
     set.seed(100);
 
-	N <- 20;
-    M <- 20;
+    x1 <- 11:30;
+    x2 <- runif(20,5,95);
+    x3 <- rbinom(20,1,.5);
 
-    A <- matrix(rnorm(N*M,mean=10,sd=4), N, M);
-    colnames(A) <- sapply(seq(1,20), function (x) {paste("a",x,sep="")});
-    x <- matrix(rnorm(M,mean=2,sd=1), M, 1);
-    
-    y <- A%*%x;
-    colnames(y) <- c("y");
-    data <- as.data.frame(cbind(x, A));
-    
-    xest <- LRegress_Node(data, colnames(y), colnames(A));
+    b0 <- 17;
+    b1 <- 0.5;
+    b2 <- 0.037;
+    b3 <- -5.2;
+    sigma <- 1.4;
+
+    eps <- rnorm(x1,0,sigma);
+    y <- b0 + b1*x1  + b2*x2  + b3*x3 + eps;
+
+    data = data.frame(y,x1,x2,x3);
+    ycolumn <- "y";
+    Acolumns <- c("x1","x2","x3");
+
+    xest <- LRegress_Node(data, ycolumn, Acolumns);
+
     beta <- xest[[1]];
     Sigma <- xest[[2]];
-    
-    expect_equal(beta[1],      0.71517135,   tolerance = 1e-6);
-    expect_equal(beta[10],     2.60860245,   tolerance = 1e-6);
-    expect_equal(beta[20],     1.06780877,   tolerance = 1e-6);
-    expect_equal(Sigma[1,1],   0.0363542484, tolerance = 1e-6);
-    expect_equal(Sigma[1,5],  -0.0033319972, tolerance = 1e-6);
-    expect_equal(Sigma[10,1], -0.0139791712, tolerance = 1e-6);
-    expect_equal(Sigma[10,3], -0.056881108,  tolerance = 1e-6);
-    expect_equal(Sigma[10,5],  0.0314686605, tolerance = 1e-6);
-    expect_equal(Sigma[20,1], -0.0019351168, tolerance = 1e-6);
-    expect_equal(Sigma[20,5],  0.0368693618, tolerance = 1e-6);
+
+    expect_equivalent(beta, c(16.18750837,0.55604708,0.02711566,-4.80906215));
+    SigmaRef <- matrix(c( 1.026124730, -0.0330411429, -0.0036317683, -0.193004340,
+                         -0.033041143,  0.0017638153, -0.0001235071,  0.004068457,
+                         -0.003631768, -0.0001235071,  0.0001482795, -0.001159273,
+                         -0.193004340,  0.0040684572, -0.0011592728,  0.251816442), byrow = TRUE, ncol = 4, nrow = 4)
+    expect_equivalent(Sigma, SigmaRef);
 });

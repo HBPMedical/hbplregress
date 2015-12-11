@@ -3,7 +3,7 @@
 #'
 #' @param betas regression coefficients computed in different 'N' nodes (list data type).
 #' @param Sigmas Covariance matrices of the regression coefficients in different 'N' nodes (list data type).
-#' @param Ndegree Number fo degree of freedom.
+#' @param Ndegree Number of degree of freedom.
 #' @return betaf  : Regression coefficient joining properly betas and Sigmas from 'N' nodes.
 #'                  This will be the result the user will receive. The intermediate betas are not shown.
 #'         Sigmaf : Covariance matrix of joining properly the partial covariance matrices coming from different nodes.
