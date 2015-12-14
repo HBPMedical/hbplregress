@@ -42,6 +42,6 @@ test_that("Federated results are consistent with global results", {
     gbetaf <- gestf[[1]];
     gSigmaf <- gestf[[2]];
 
-    expect_equal(betaf, gbetaf);
-    expect_equal(Sigmaf, gSigmaf);
+    expect_equivalent(betaf, gbetaf);
+    expect_equivalent(Sigmaf, gSigmaf);
 });
