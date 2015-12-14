@@ -16,7 +16,8 @@ LRegress_Node <- function(yA, ycolumn, Acolumns) {
   # LREN, CHUV.
   # Lausanne, June 24th, 2015
 
-  yAvarnames <- colnames(yA);
+  # Convert all strings to factors
+  yA[sapply(yA, is.character)] <- lapply(yA[sapply(yA, is.character)], as.factor);
 
   # Constructing the linear model sentence ...
   smodel <- paste(Acolumns, collapse="+");
@@ -29,7 +30,7 @@ LRegress_Node <- function(yA, ycolumn, Acolumns) {
 
   Sigmai <- vcov(lm_out);
 
-  rout <- list(betai,Sigmai,summary(lm_out));
+  rout <- list(coefficients=betai, residuals=Sigmai, summary=summary(lm_out));
 
   return(rout);
 }
