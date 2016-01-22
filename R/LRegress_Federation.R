@@ -31,7 +31,7 @@ LRegress_Federation <- function(betas,Sigmas,Ndegree){
   t <- betaf/sqrt(diag(Sigmaf));
   pvals <- dt(t,Ndegree);
 
-  rout <- list(betaf,Sigmaf,t,pvals);
+  rout <- list(coefficients=betaf, residuals=Sigmaf,t,pvals);
 
   return(rout);
 }
