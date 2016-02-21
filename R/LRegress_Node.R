@@ -30,7 +30,9 @@ LRegress_Node <- function(yA, ycolumn, Acolumns) {
 
   Sigmai <- vcov(lm_out);
 
-  rout <- list(coefficients=betai, residuals=Sigmai, summary=summary(lm_out));
+  Anova <- anova(lm_out);
+
+  rout <- list(coefficients=betai, residuals=Sigmai, summary=summary(lm_out), anova=Anova);
 
   return(rout);
 }
