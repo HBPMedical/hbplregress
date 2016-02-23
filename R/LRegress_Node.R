@@ -39,7 +39,7 @@ LRegress_Node <- function(yA, ycolumn, Acolumns, Agroups) {
 
   Anova <- NA;
 
-  if (len(Agroups) > 1) {
+  if (length(Agroups) > 1) {
      Anova <- try(anova(lm_out));
      if (class(Anova) == "try-error") {
        cat("Cannot perform Anova: ", Anova);
