@@ -5,22 +5,29 @@
 #'
 #' @param yA Data obtained from specific query to the local Database.
 #' @param ycolumn Name of the variable (column) that will dependent variable (left hand of the Linear model equation).
-#' @param Acolumns Names of the variables for the design or regression matrix that will be obtained  from specific query to the local Database.
+#' @param Acolumns List of names of the co-variables for the design or regression matrix that will be obtained  from specific query to the local Database.
+#' @param Agroups  List of names of the variables to group, default to empty list
 #' @return betai  (rout[1]) : regression coefficient computed in nodes 'i'.
 #'         Sigmai (rout[2]) : Covariance matrix of the regression coefficients betai.
 #'                 rout[3]  : Summary of the linear regression results.
 #' @keywords regression
 #' @export
-LRegress_Node <- function(yA, ycolumn, Acolumns) {
+LRegress_Node <- function(yA, ycolumn, Acolumns, Agroups) {
   # Lester Melie-Garcia
   # LREN, CHUV.
   # Lausanne, June 24th, 2015
+
+  if (missing(Agroups)) {
+      Agroups <- c();
+  }
 
   # Convert all strings to factors
   yA[sapply(yA, is.character)] <- lapply(yA[sapply(yA, is.character)], as.factor);
 
   # Constructing the linear model sentence ...
-  smodel <- paste(Acolumns, collapse="+");
+  covarsmodel <- paste(Acolumns, collapse="+");
+  groupsmodel <- paste(Agroups, collapse=":");
+  smodel <- paste(c(groupsmodel,covarsmodel), collapse="+");
 
   smodelf <- paste(ycolumn," ~ ",smodel,sep = '');
 

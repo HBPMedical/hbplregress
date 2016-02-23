@@ -1,16 +1,17 @@
 Package: hbplregress
-Title: What the Package Does (one line, title case)
+Title: Linear regression
 Version: 0.0.0.9000
 Authors@R: person("Lester", "Melie-Garcia", email = "Lester.Melie-Garcia@chuv.ch", role = c("aut", "cre"))
 Author: Lester Melie-Garcia [aut, cre]
 Maintainer: Lester Melie-Garcia <Lester.Melie-Garcia@chuv.ch>
-Description: What the package does (one paragraph).
+Description: Performs a standard linear regression (lm) and collect the results for the MIP platform.
 Depends:
     R (>= 3.2.1)
 Imports:
     MASS
-License: MIT
+License: MIT + file LICENSE
 LazyData: true
 Suggests:
-    testthat
+    testthat,
+    jsonlite
 RoxygenNote: 5.0.1
