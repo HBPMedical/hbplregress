@@ -37,7 +37,15 @@ LRegress_Node <- function(yA, ycolumn, Acolumns, Agroups) {
 
   Sigmai <- vcov(lm_out);
 
-  Anova <- anova(lm_out);
+  Anova <- NA;
+
+  if (len(Agroups) > 1) {
+     Anova <- try(anova(lm_out));
+     if (class(Anova) == “try-error”) {
+       cat("Cannot perform Anova: ", Anova);
+       Anova <- NA;
+     }
+  }
 
   rout <- list(coefficients=betai, residuals=Sigmai, summary=summary(lm_out), anova=Anova);
 
