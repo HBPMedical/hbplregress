@@ -27,7 +27,10 @@ LRegress_Node <- function(yA, ycolumn, Acolumns, Agroups) {
   # Constructing the linear model sentence ...
   covarsmodel <- paste(Acolumns, collapse="+");
   groupsmodel <- paste(Agroups, collapse=":");
-  smodel <- paste(c(groupsmodel,covarsmodel), collapse="+");
+  cvgmodel <- c(groupsmodel,covarsmodel);
+  cvgmodel <- cvgmodel[lapply(cvgmodel,nchar)>0];
+
+  smodel <- paste(cvgmodel, collapse="+");
 
   smodelf <- paste(ycolumn," ~ ",smodel,sep = '');
 
@@ -41,7 +44,7 @@ LRegress_Node <- function(yA, ycolumn, Acolumns, Agroups) {
 
   if (length(Agroups) > 1) {
      Anova <- try(anova(lm_out));
-     if (class(Anova) == "try-error") {
+     if (length(Anova) == 1 && class(Anova) == "try-error") {
        cat("Cannot perform Anova: ", Anova);
        Anova <- NA;
      }
