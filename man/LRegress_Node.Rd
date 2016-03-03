@@ -6,14 +6,16 @@
 This is the function that will be running at local node level. The data (input parameters: y, A) are obtained from the
 local databases using a specific queries. These queries will be the same for all nodes.}
 \usage{
-LRegress_Node(yA, ycolumn, Acolumns)
+LRegress_Node(data, varname, covarnames, groups)
 }
 \arguments{
-\item{yA}{Data obtained from specific query to the local Database.}
+\item{data}{Data obtained from specific query to the local Database.}
 
-\item{ycolumn}{Name of the variable (column) that will dependent variable (left hand of the Linear model equation).}
+\item{varname}{Name of the varname (column) that will dependent varname (left hand of the Linear model equation).}
 
-\item{Acolumns}{Names of the variables for the design or regression matrix that will be obtained  from specific query to the local Database.}
+\item{covarnames}{List of names of the co-varnames for the design or regression matrix that will be obtained  from specific query to the local Database.}
+
+\item{groups}{List of names of the varnames to group, default to empty list}
 }
 \value{
 betai  (rout[1]) : regression coefficient computed in nodes 'i'.

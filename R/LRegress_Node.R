@@ -3,38 +3,38 @@
 #' This is the function that will be running at local node level. The data (input parameters: y, A) are obtained from the
 #' local databases using a specific queries. These queries will be the same for all nodes.
 #'
-#' @param yA Data obtained from specific query to the local Database.
-#' @param ycolumn Name of the variable (column) that will dependent variable (left hand of the Linear model equation).
-#' @param Acolumns List of names of the co-variables for the design or regression matrix that will be obtained  from specific query to the local Database.
-#' @param Agroups  List of names of the variables to group, default to empty list
+#' @param data Data obtained from specific query to the local Database.
+#' @param varname Name of the varname (column) that will dependent varname (left hand of the Linear model equation).
+#' @param covarnames List of names of the co-varnames for the design or regression matrix that will be obtained  from specific query to the local Database.
+#' @param groups  List of names of the varnames to group, default to empty list
 #' @return betai  (rout[1]) : regression coefficient computed in nodes 'i'.
 #'         Sigmai (rout[2]) : Covariance matrix of the regression coefficients betai.
 #'                 rout[3]  : Summary of the linear regression results.
 #' @keywords regression
 #' @export
-LRegress_Node <- function(yA, ycolumn, Acolumns, Agroups) {
+LRegress_Node <- function(data, varname, covarnames, groups) {
   # Lester Melie-Garcia
   # LREN, CHUV.
   # Lausanne, June 24th, 2015
 
-  if (missing(Agroups)) {
-      Agroups <- c();
+  if (missing(groups)) {
+      groups <- c();
   }
 
   # Convert all strings to factors
-  yA[sapply(yA, is.character)] <- lapply(yA[sapply(yA, is.character)], as.factor);
+  data[sapply(data, is.character)] <- lapply(data[sapply(data, is.character)], as.factor);
 
   # Constructing the linear model sentence ...
-  covarsmodel <- paste(Acolumns, collapse="+");
-  groupsmodel <- paste(Agroups, collapse=":");
+  covarsmodel <- paste(covarnames, collapse="+");
+  groupsmodel <- paste(groups, collapse=":");
   cvgmodel <- c(groupsmodel,covarsmodel);
   cvgmodel <- cvgmodel[lapply(cvgmodel,nchar)>0];
 
   smodel <- paste(cvgmodel, collapse="+");
 
-  smodelf <- paste(ycolumn," ~ ",smodel,sep = '');
+  smodelf <- paste(varname," ~ ",smodel,sep = '');
 
-  lm_out <- lm(smodelf, data = yA);
+  lm_out <- lm(smodelf, data = data);
 
   betai <- lm_out$coefficients;
 
@@ -42,12 +42,10 @@ LRegress_Node <- function(yA, ycolumn, Acolumns, Agroups) {
 
   Anova <- NA;
 
-  if (length(Agroups) > 0) {
-     Anova <- try(anova(lm_out));
-     if (length(Anova) == 1 && class(Anova) == "try-error") {
-       cat("Cannot perform Anova: ", Anova);
-       Anova <- NA;
-     }
+  Anova <- try(anova(lm_out));
+  if (length(Anova) == 1 && class(Anova) == "try-error") {
+    cat("Cannot perform Anova: ", Anova);
+    Anova <- NA;
   }
 
   rout <- list(coefficients=betai, residuals=Sigmai, summary=summary.lm(lm_out), anova=Anova);

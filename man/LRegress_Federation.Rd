@@ -12,7 +12,7 @@ LRegress_Federation(betas, Sigmas, Ndegree)
 
 \item{Sigmas}{Covariance matrices of the regression coefficients in different 'N' nodes (list data type).}
 
-\item{Ndegree}{Number fo degree of freedom.}
+\item{Ndegree}{Number of degree of freedom.}
 }
 \value{
 betaf  : Regression coefficient joining properly betas and Sigmas from 'N' nodes.
