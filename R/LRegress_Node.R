@@ -21,10 +21,14 @@ LRegress_Node <- function(data, varname, covarnames, groups) {
       groups <- c();
   }
 
+  columns <- names(data);
   # Convert all strings to factors
   data[sapply(data, is.character)] <- lapply(data[sapply(data, is.character)], as.factor);
   # If the variable is a factor, convert it to a numeric
-  data[varname] <- sapply(data[varname], function(x) {if (is.factor(x)) as.numeric(x)});
+  varcolumn <- lapply(data[c(varname)], function(x) {if (is.factor(x)) as.numeric(x) else x});
+  othercolumns <- as.data.frame(data[ , !names(data) %in% c(varname)]);
+  names(othercolumns) <- columns[ columns != varname ];
+  data <- cbind(as.data.frame(varcolumn), othercolumns);
 
   # Constructing the linear model sentence ...
   covarsmodel <- paste(covarnames, collapse="+");
