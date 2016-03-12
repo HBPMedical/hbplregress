@@ -11,7 +11,7 @@
 #'         pvals  : p-values, significance of the regression coefficients.
 #' @keywords regression
 #' @export
-LRegress_Federation <- function(betas,Sigmas,Ndegree){
+LRegress_group <- function(betas,Sigmas,Ndegree){
   # Lester Melie-Garcia
   # LREN, CHUV.
   # Lausanne, September 11th, 2015

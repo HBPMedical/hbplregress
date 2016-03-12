@@ -4,15 +4,15 @@
 #' local databases using a specific queries. These queries will be the same for all nodes.
 #'
 #' @param data Data obtained from specific query to the local Database.
-#' @param varname Name of the varname (column) that will dependent varname (left hand of the Linear model equation).
-#' @param covarnames List of names of the co-varnames for the design or regression matrix that will be obtained  from specific query to the local Database.
-#' @param groups  List of names of the varnames to group, default to empty list
+#' @param variable Name of the variable (column) that will be the dependent variable (left hand of the Linear model equation).
+#' @param covariables List of names of the co-variables for the design or regression matrix that will be obtained  from specific query to the local Database.
+#' @param groups  List of names of the variables to group, default to empty list
 #' @return betai  (rout[1]) : regression coefficient computed in nodes 'i'.
 #'         Sigmai (rout[2]) : Covariance matrix of the regression coefficients betai.
 #'                 rout[3]  : Summary of the linear regression results.
 #' @keywords regression
 #' @export
-LRegress_Node <- function(data, varname, covarnames, groups) {
+LRegress <- function(data, variable, covariables, groups) {
   # Lester Melie-Garcia
   # LREN, CHUV.
   # Lausanne, June 24th, 2015
@@ -25,20 +25,20 @@ LRegress_Node <- function(data, varname, covarnames, groups) {
   # Convert all strings to factors
   data[sapply(data, is.character)] <- lapply(data[sapply(data, is.character)], as.factor);
   # If the variable is a factor, convert it to a numeric
-  varcolumn <- lapply(data[c(varname)], function(x) {if (is.factor(x)) as.numeric(x) else x});
-  othercolumns <- as.data.frame(data[ , !names(data) %in% c(varname)]);
-  names(othercolumns) <- columns[ columns != varname ];
+  varcolumn <- lapply(data[c(variable)], function(x) {if (is.factor(x)) as.numeric(x) else x});
+  othercolumns <- as.data.frame(data[ , !names(data) %in% c(variable)]);
+  names(othercolumns) <- columns[ columns != variable ];
   data <- cbind(as.data.frame(varcolumn), othercolumns);
 
   # Constructing the linear model sentence ...
-  covarsmodel <- paste(covarnames, collapse="+");
+  covarsmodel <- paste(covariables, collapse="+");
   groupsmodel <- paste(groups, collapse=":");
   cvgmodel <- c(groupsmodel,covarsmodel);
   cvgmodel <- cvgmodel[lapply(cvgmodel,nchar)>0];
 
   smodel <- paste(cvgmodel, collapse="+");
 
-  smodelf <- paste(varname," ~ ",smodel,sep = '');
+  smodelf <- paste(variable," ~ ",smodel,sep = '');
 
   lm_out <- lm(smodelf, data = data);
 
