@@ -26,18 +26,18 @@ test_that("Federated results are consistent with global results", {
     data1 <- s[[1]]
     data2 <- s[[2]]
 
-    xest1 <- LRegress_Node(data1, ycolumn, Acolumns);
-    xest2 <- LRegress_Node(data2, ycolumn, Acolumns);
+    xest1 <- LRegress(data1, ycolumn, Acolumns);
+    xest2 <- LRegress(data2, ycolumn, Acolumns);
 
     betas <- list(xest1[[1]], xest2[[1]])
     Sigmas <- list(xest1[[2]], xest2[[2]])
     
-    xestf <- LRegress_Federation(betas, Sigmas, 99);
+    xestf <- LRegress_group(betas, Sigmas, 99);
     
     betaf <-  xestf[[1]];
     Sigmaf <- xestf[[2]];
 
-    gestf <- LRegress_Node(data, ycolumn, Acolumns);
+    gestf <- LRegress(data, ycolumn, Acolumns);
 
     gbetaf <- gestf[[1]];
     gSigmaf <- gestf[[2]];

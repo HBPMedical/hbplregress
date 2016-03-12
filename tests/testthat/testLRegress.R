@@ -24,7 +24,7 @@ test_that("Linear regression is correct at the node level", {
     ycolumn <- "y";
     Acolumns <- c("x1","x2","x3");
 
-    xest <- LRegress_Node(data, ycolumn, Acolumns);
+    xest <- LRegress(data, ycolumn, Acolumns);
 
     beta <- xest$coefficients;
     Sigma <- xest$residuals;
@@ -149,7 +149,7 @@ test_that("Linear regression works on groupings", {
     Acolumns <- c("n.kids","score", "time1", "time2", "time3");
     Agroups <- c("gender", "political");
 
-    xest <- LRegress_Node(data, ycolumn, Acolumns, Agroups);
+    xest <- LRegress(data, ycolumn, Acolumns, Agroups);
 
     beta <- xest$coefficients;
     Anova <- xest$anova;
