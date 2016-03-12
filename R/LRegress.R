@@ -17,6 +17,7 @@ LRegress <- function(data, variable, covariables, groups) {
   # LREN, CHUV.
   # Lausanne, June 24th, 2015
 
+  variable <- unlist(variable);
   if (missing(groups)) {
       groups <- c();
   }
