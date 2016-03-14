@@ -6,20 +6,20 @@
 #' @param data Data obtained from specific query to the local Database.
 #' @param variable Name of the variable (column) that will be the dependent variable (left hand of the Linear model equation).
 #' @param covariables List of names of the co-variables for the design or regression matrix that will be obtained  from specific query to the local Database.
-#' @param groups  List of names of the variables to group, default to empty list
+#' @param grouping  List of names of the variables to group, default to empty list
 #' @return betai  (rout[1]) : regression coefficient computed in nodes 'i'.
 #'         Sigmai (rout[2]) : Covariance matrix of the regression coefficients betai.
 #'                 rout[3]  : Summary of the linear regression results.
 #' @keywords regression
 #' @export
-LRegress <- function(data, variable, covariables, groups) {
+LRegress <- function(data, variable, covariables, grouping) {
   # Lester Melie-Garcia
   # LREN, CHUV.
   # Lausanne, June 24th, 2015
 
   variable <- unlist(variable);
-  if (missing(groups)) {
-      groups <- c();
+  if (missing(grouping)) {
+      grouping <- c();
   }
 
   columns <- names(data);
@@ -33,8 +33,8 @@ LRegress <- function(data, variable, covariables, groups) {
 
   # Constructing the linear model sentence ...
   covarsmodel <- paste(covariables, collapse="+");
-  groupsmodel <- paste(groups, collapse=":");
-  cvgmodel <- c(groupsmodel,covarsmodel);
+  groupingmodel <- paste(grouping, collapse=":");
+  cvgmodel <- c(groupingmodel,covarsmodel);
   cvgmodel <- cvgmodel[lapply(cvgmodel,nchar)>0];
 
   smodel <- paste(cvgmodel, collapse="+");

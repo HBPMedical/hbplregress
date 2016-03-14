@@ -6,7 +6,7 @@
 This is the function that will be running at local node level. The data (input parameters: y, A) are obtained from the
 local databases using a specific queries. These queries will be the same for all nodes.}
 \usage{
-LRegress(data, variable, covariables, groups)
+LRegress(data, variable, covariables, grouping)
 }
 \arguments{
 \item{data}{Data obtained from specific query to the local Database.}
@@ -15,7 +15,7 @@ LRegress(data, variable, covariables, groups)
 
 \item{covariables}{List of names of the co-variables for the design or regression matrix that will be obtained  from specific query to the local Database.}
 
-\item{groups}{List of names of the variables to group, default to empty list}
+\item{grouping}{List of names of the variables to group, default to empty list}
 }
 \value{
 betai  (rout[1]) : regression coefficient computed in nodes 'i'.
