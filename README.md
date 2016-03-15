@@ -1,7 +1,7 @@
 
 # hbplregress R package
 
-Linear regression in R adapted for the Leenaards platform.
+Linear regression in R adapted for the woken platform.
 
 It provides:
 - simple linear regression, with automatic adaptation of the input dataset (strings changed to factors)
