@@ -18,6 +18,8 @@ LRegress <- function(data, variable, covariables, grouping) {
   # Lausanne, June 24th, 2015
 
   variable <- unlist(variable);
+  covariables <- unlist(covariables);
+  grouping <- unlist(grouping);
   if (missing(grouping)) {
       grouping <- c();
   }
