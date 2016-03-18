@@ -26,8 +26,8 @@ test_that("Federated results are consistent with global results", {
     data1 <- s[[1]]
     data2 <- s[[2]]
 
-    xest1 <- LRegress(data1, ycolumn, Acolumns);
-    xest2 <- LRegress(data2, ycolumn, Acolumns);
+    xest1 <- LRegress(data1, ycolumn, Acolumns, c());
+    xest2 <- LRegress(data2, ycolumn, Acolumns, c());
 
     betas <- list(xest1[[1]], xest2[[1]])
     Sigmas <- list(xest1[[2]], xest2[[2]])
