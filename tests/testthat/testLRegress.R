@@ -24,7 +24,7 @@ test_that("Linear regression is correct at the node level", {
     ycolumn <- "y";
     Acolumns <- c("x1","x2","x3");
 
-    xest <- LRegress(data, ycolumn, Acolumns);
+    xest <- LRegress(data, ycolumn, Acolumns, c());
 
     beta <- xest$coefficients;
     Sigma <- xest$residuals;
