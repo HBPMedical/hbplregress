@@ -35,13 +35,14 @@ LRegress <- function(data, variable, covariables, grouping) {
 
   # Constructing the linear model sentence ...
   covarsmodel <- paste(covariables, collapse="+");
-  groupingmodel <- paste(grouping, collapse=":");
+  groupingmodel <- paste(grouping, collapse="*");
   cvgmodel <- c(groupingmodel,covarsmodel);
   cvgmodel <- cvgmodel[lapply(cvgmodel,nchar)>0];
 
   smodel <- paste(cvgmodel, collapse="+");
 
   smodelf <- paste(variable," ~ ",smodel,sep = '');
+  print(smodelf);
 
   lm_out <- lm(smodelf, data = data);
 
